@@ -1,0 +1,24 @@
+.btn {
+  background-color: #FF7F50;
+  border: 1px solid darken(#FF7F50, 5%);
+}
+
+.container {
+  overflow-x: hidden;
+}
+
+.fileInput {
+  height: 0px;
+  overflow: hidden;
+}
+
+.link {
+  color: #FF7F50;
+  cursor: pointer;
+  padding-left: 1em;
+}
+.picture {
+  display: block;
+  margin: 0 auto;
+  width: 80px;
+}
