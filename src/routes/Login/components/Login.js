@@ -24,12 +24,12 @@ export default class Login extends Component {
   }
 
   render() {
+    const pic = this.props.imageUrl;
     const loginButton = (
       <Link to={{pathname: 'profile/'}}>
-        <Button className="btn">Login</Button>
+        <Button className="btn" disabled={!pic}>Login</Button>
       </Link>
     );
-    const pic = this.props.imageUrl || require('../../../static/cat.png');
     const picture = <img className="picture" src={pic}/>;
     const upLoadLink = <a className="link" onClick={this._uploadPicture}>Upload a picture to login!</a>;
 
@@ -37,12 +37,12 @@ export default class Login extends Component {
       <div className="container">
         <DocumentMeta title='Login'/>
         <div>
-          <Row>
+          <Row className="row">
             <Col sm={4} smOffset={4}>
               {picture}
             </Col>
           </Row>
-          <Row>
+          <Row className="row">
             <Col sm={4} smOffset={4}>
               {upLoadLink}
             </Col>
@@ -58,7 +58,7 @@ export default class Login extends Component {
           </Row>
         </div>
         <div>
-          <Row>
+          <Row className="row">
             <Col sm={4} smOffset={4}>
               {loginButton}
             </Col>
