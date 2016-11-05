@@ -56,7 +56,7 @@ webpackConfig.externals['react/addons'] = true
 webpackConfig.plugins = [
   // Plugin to show any webpack warnings and prevent tests from running
   function () {
-    let errors = []
+    const errors = []
     this.plugin('done', function (stats) {
       if (stats.compilation.errors.length) {
         // Log each of the warnings
