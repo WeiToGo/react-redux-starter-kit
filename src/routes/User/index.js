@@ -4,6 +4,7 @@ export default (store) => ({
   path : 'user',
   /*  Async getComponent is only invoked when route matches   */
   getComponent (nextState, cb) {
+    console.log('get ')
     /*  Webpack - use 'require.ensure' to create a split point
         and embed an async module loader (jsonp) when bundling   */
     require.ensure([], (require) => {
@@ -13,6 +14,7 @@ export default (store) => ({
       const user = require('./modules/user').default
 
       /*  Add the reducer to the store on key 'counter'  */
+      console.log('user ', user)
       injectReducer(store, { key: 'user', user })
 
       /*  Return getComponent   */
