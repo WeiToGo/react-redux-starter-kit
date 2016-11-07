@@ -2,20 +2,10 @@ import React, { PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { loginValidation } from '../validation'
 
-const renderTextField = (field) => {
+const renderField = (field) => {
   return (
     <div>
-      <input {...field.input} type='text' />
-      {field.meta.touched && field.meta.error &&
-      <span>{field.meta.error}</span>}
-    </div>
-  )
-}
-
-const renderPasswordField = (field) => {
-  return (
-    <div>
-      <input {...field.input} type='password' />
+      <input {...field.input} type={field.type} />
       {field.meta.touched && field.meta.error &&
       <span>{field.meta.error}</span>}
     </div>
@@ -28,11 +18,12 @@ const LoginForm = props => {
     <form onSubmit={handleSubmit}>
       <div>
         <Field name='email'
-          component={renderTextField} />
+          type='text'
+          component={renderField} />
       </div>
       <div>
         <Field name='password'
-          component={renderPasswordField} />
+          component={renderField} />
       </div>
       <button type='submit'>Submit</button>
     </form>

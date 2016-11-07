@@ -1,58 +1,48 @@
 import React, { PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { TextField } from 'redux-form-material-ui'
+import { signUpValidation, asyncValidate } from '../validation'
 
-const validate = values => {
-  const errors = {}
-  const requiredFields = [ 'name', 'email', 'phone', 'address' ]
-  requiredFields.forEach(field => {
-    if (!values[ field ]) {
-      errors[ field ] = 'Required'
-    }
-  })
-
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-
-  if (values.phone) {
-    const atLeastSevenDigits = (values.phone.replace(/[^0-9]/g, '').length) >= 7
-    const isPhone = /^[0-9+()#.\s/a-zA-Z-]+$/.test(values.phone)
-    if (!atLeastSevenDigits || !isPhone) {
-      errors.phone = 'Invalid phone number'
-    }
-  }
-  return errors
+const renderField = (field) => {
+  return (
+    <div>
+      <input {...field.input} placeholder={field.label} type={field.type} />
+      {field.meta.touched && field.meta.error &&
+      <span>{field.meta.error}</span>}
+    </div>
+  )
 }
 
 const SignUpForm = (props) => {
   return (
-    <form onSubmit={props.signUp}>
+    <form onSubmit={props.handleSubmit}>
       <div>
-        <Field name='name' component={TextField} />
+        <Field name='email' label='email' type='text' component={renderField} />
       </div>
       <div>
-        <Field name='email' component={TextField} />
+        <Field name='phone' label='phone' type='text' component={renderField} />
       </div>
       <div>
-        <Field name='phone' component={TextField} />
+        <Field name='address' label='address' type='text' component={renderField} />
       </div>
       <div>
-        <Field name='address' component={TextField} />
+        <Field name='password' label='password' type='password' component={renderField} />
       </div>
       <div>
-        <button type='submit' disabled={props.creatingAccount}>Submit</button>
+        <Field name='passwordConfirm' label='confirm password' type='password' component={renderField} />
+      </div>
+      <div>
+        <button type='submit'>Submit</button>
       </div>
     </form>
   )
 }
 
 SignUpForm.propTypes = {
-  signUp     : PropTypes.func.isRequired,
-  creatingAccount: PropTypes.bool.isRequired
+  handleSubmit: PropTypes.func.isRequired
 }
 
 export default reduxForm({
-  form: 'SignUpForm',
-  validate  // a unique identifier for this form
+  form: 'signUp',
+  validate: signUpValidation,  // a unique identifier for this form
+  asyncValidate
 })(SignUpForm)
